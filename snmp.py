@@ -21,5 +21,4 @@ def getOctets(community,ipaddress,octets):
 
     else:
         for varBind in varBinds:
-            print(' = '.join([x.prettyPrint() for x in varBind]))
             return varBind[1]
