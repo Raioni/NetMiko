@@ -22,30 +22,21 @@ R3 = {
 }
 
 
-
-routers = dict()
-routers['R1'] = R1
-routers['R2'] = R2
-routers['R3'] = R3
-
 cont = 0
 comm = ["Router1","Router2","Router3"]
 
 for routers in (R1,R2,R3):
     connect = ConnectHandler(**routers)
-    output = connect.send_command(f'snmp-server community {comm[cont]} RO')
-    print(output)
+    snmp = 'snmp-server community ' + comm[cont] + ' RO'
+    array = [snmp, "end"]
+    output = connect.send_config_set(array)
     cont +=1
 
-
-#for i in routers:
-#    connect = ConnectHandler(**routers[i])
-#    connect.send_command(f"snmp-server community {comm[cont]} RO")
-#    cont +=1
-
 while(True):
+	print('---------------------------------------------------------------------')
 	print('R1 = in: ', getOctets(comm[0], R1['host'], "ifInOctets"), 'out: ', getOctets(comm[0], R1['host'], "ifOutOctets"))
 	print('R2 = in: ', getOctets(comm[1], R2['host'], "ifInOctets"), 'out: ', getOctets(comm[1], R2['host'], "ifOutOctets"))
 	print('R3 = in: ', getOctets(comm[2], R3['host'], "ifInOctets"), 'out: ', getOctets(comm[2], R3['host'], "ifOutOctets"))
 	print('---------------------------------------------------------------------')
 	time.sleep(10)
+
