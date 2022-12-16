@@ -1,14 +1,13 @@
 from pysnmp.hlapi import *
 
 def getOctets(community,ipaddress,octets):
-from pysnmp.hlapi import *
 
     iterator = getCmd(
         SnmpEngine(),
         CommunityData(community),
         UdpTransportTarget((ipaddress, 161)),
         ContextData(),
-        ObjectType(ObjectIdentity('IF-MIB', octets, 0)),
+        ObjectType(ObjectIdentity('IF-MIB', octets, 1)),
     )
 
     errorIndication, errorStatus, errorIndex, varBinds = next(iterator)
